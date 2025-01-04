@@ -9,22 +9,21 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import WorkingHoursModal from "./WorkingHoursModal";
-import { fetchWorkingHours } from "../../../features/workingHours/workingHourSlice";
+import {
+  fetchWorkingHours,
+  updateWorkingHours,
+} from "../../../features/profile/profileSlice";
 
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
-  const { profile, workingHours } = useSelector((state) => state);
-  const { data: profileData, status } = profile;
-  const { workingHours: workingHoursData } = workingHours;
+  const { profile, workingHours, status, timeZone } = useSelector(
+    (state) => state.profile
+  );
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  useEffect(() => {
-    dispatch(fetchWorkingHours());
-  }, [dispatch]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -81,7 +80,7 @@ const ProfilePage = () => {
   const currentDay = getCurrentDay();
 
   // Get working hours for the current day or set to empty array if not available
-  const currentDayWorkingHours = workingHoursData.find(
+  const currentDayWorkingHours = workingHours.find(
     (day) => day.day === currentDay
   ) || { times: [] };
 
@@ -89,7 +88,7 @@ const ProfilePage = () => {
     return <Spin size="large" />;
   }
 
-  if (!profileData) {
+  if (!profile) {
     return <Text type="danger">Failed to load profile data.</Text>;
   }
 
@@ -104,13 +103,13 @@ const ProfilePage = () => {
         }}
       >
         <Space size={16}>
-          <Avatar size={64}>{profileData.name[0]}</Avatar>
+          <Avatar size={64}>{profile.name[0]}</Avatar>
           <div>
             <Title level={2} style={{ marginBottom: 0 }}>
-              {profileData.name}
+              {profile.name}
             </Title>
             <Text type="secondary">
-              {profileData.role} · {profileData.location} · {profileData.time}
+              {profile.role} · {profile.location} · {profile.time}
             </Text>
           </div>
         </Space>
@@ -122,14 +121,12 @@ const ProfilePage = () => {
           <Space direction="vertical" size={16}>
             <Space>
               <PhoneOutlined />
-              <Text>{profileData.phone}</Text>
+              <Text>{profile.phone}</Text>
             </Space>
-            <Space direction="vertical" size={4}>
-              {profileData.emails.map((email, index) => (
-                <Space key={index}>
-                  <MailOutlined />
-                  <Text>{email}</Text>
-                </Space>
+            <Space>
+              <MailOutlined />
+              {profile.emails.map((email, index) => (
+                <Text>{email};</Text>
               ))}
             </Space>
             <Space>
@@ -165,14 +162,14 @@ const ProfilePage = () => {
             </Space>
             <Space>
               <LockOutlined />
-              <Text>{profileData.ownership}</Text>
+              <Text>{profile.ownership}</Text>
             </Space>
           </Space>
         </TabPane>
 
         <TabPane tab="Working hours" key="working-hours">
           <ul style={{ paddingLeft: "20px" }}>
-            {workingHoursData.map((day, index) => {
+            {workingHours.map((day, index) => {
               return (
                 <li key={index} style={{ marginBottom: "10px" }}>
                   <strong>{day.day}</strong>
@@ -215,7 +212,13 @@ const ProfilePage = () => {
         </TabPane>
       </Tabs>
 
-      <WorkingHoursModal visible={isModalVisible} onCancel={handleCancel} />
+      <WorkingHoursModal
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        workingHours={workingHours}
+        updateWorkingHours={updateWorkingHours}
+        timeZone={timeZone}
+      />
     </Layout>
   );
 };

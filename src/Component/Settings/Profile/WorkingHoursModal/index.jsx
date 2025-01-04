@@ -11,7 +11,6 @@ import {
 } from "antd";
 import { PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { updateWorkingHours } from "../../../../features/workingHours/workingHourSlice";
 import { useTimezoneSelect, allTimezones } from "react-timezone-select";
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -55,15 +54,22 @@ const generateTimeSlots = () => {
 // Generate the time slots
 const timeSlots = generateTimeSlots();
 
-const WorkingHoursModal = ({ visible, onCancel }) => {
-  const { options, parseTimezone } = useTimezoneSelect({
+const WorkingHoursModal = ({
+  visible,
+  onCancel,
+  workingHours,
+  updateWorkingHours,
+  timeZone,
+}) => {
+  const { options } = useTimezoneSelect({
     labelStyle,
     timezones,
   });
-  const dispatch = useDispatch();
-  const { workingHours } = useSelector((state) => state.workingHours);
 
-  // Local state to store working hours updates
+  const dispatch = useDispatch();
+
+  const [selectedTimeZone, setSelectedTimeZone] = useState("");
+
   const [localWorkingHours, setLocalWorkingHours] = useState(workingHours);
 
   // Deep copy of working hours to avoid mutation errors
@@ -111,7 +117,12 @@ const WorkingHoursModal = ({ visible, onCancel }) => {
 
   // Step 3: Save the changes when the "Save" button is clicked
   const handleSave = () => {
-    dispatch(updateWorkingHours(localWorkingHours)); // Save updated working hours to Redux
+    dispatch(
+      updateWorkingHours({
+        workingHours: localWorkingHours,
+        timeZone: selectedTimeZone,
+      })
+    ); // Save updated working hours to Redux
     onCancel(); // Close the modal
   };
 
@@ -212,6 +223,8 @@ const WorkingHoursModal = ({ visible, onCancel }) => {
             filterOption={(input, option) =>
               option.label.toLowerCase().includes(input.toLowerCase())
             }
+            defaultValue={timeZone}
+            onChange={(value) => setSelectedTimeZone(value)}
           >
             {options.map((timeZone) => (
               <Select.Option
