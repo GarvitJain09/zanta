@@ -6,12 +6,16 @@ import { fetchMessages } from "../../features/inbox/inboxSlice";
 import Sidebar from "./Sidebar";
 import HelpAndSupport from "../HelpAndSupport";
 import Settings from "../Settings";
+import Pricing from "../Pricing";
+import Calendar from "./Calendar";
+import { fetchProfile } from "../../features/profile/profileSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { activeTab } = useSelector((state) => state.menu);
 
   useEffect(() => {
+    dispatch(fetchProfile());
     dispatch(fetchMessages(0));
   }, []);
 
@@ -20,6 +24,8 @@ const Dashboard = () => {
       <Sidebar />
       {activeTab[0] === "inbox" && <Messages />}
       {activeTab[0] === "settings" && <Settings />}
+      {activeTab[0] === "calendar" && <Calendar />}
+      {activeTab[0] === "pricingDetails" && <Pricing />}
       <HelpAndSupport />
     </Layout>
   );

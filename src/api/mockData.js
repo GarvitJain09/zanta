@@ -237,3 +237,24 @@ export const mockTransactions = [
     status: "Completed",
   },
 ];
+
+export const mockWorkingHours = [
+  { day: "Monday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+  { day: "Tuesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+  { day: "Wednesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+  { day: "Thursday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+  { day: "Friday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+  { day: "Saturday", times: [] },
+  { day: "Sunday", times: [] },
+];
+
+export const defaultTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+export const mockUserProfile = {
+  name: "Shashank Srivastava",
+  role: "Operations Manager",
+  location: "Gurugram, HR, IN",
+  time: "3:39 PM",
+  phone: "+1 612 314 6758",
+  emails: ["social@fitpeo.com", "shashank@fitpeo.com"],
+  ownership: "Owner",
+};

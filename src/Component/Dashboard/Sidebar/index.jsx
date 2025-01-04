@@ -27,26 +27,37 @@ const Sidebar = () => {
 
   // Menu items for the sidebar and drawer
   const menuItems = [
-    { key: "inbox", icon: <InboxOutlined />, label: "Inbox" },
-   
+    { key: "inbox", icon: <InboxOutlined />, label: "Inbox", position: "up" },
+
+    {
+      key: "calendar",
+      icon: <CalendarOutlined />,
+      label: "Calendar",
+      position: "up",
+    },
     {
       key: "pricingDetails",
       icon: <DollarOutlined />,
       label: "Pricing Details",
+      position: "up",
     },
-    { key: "settings", icon: <SettingOutlined />, label: "Settings" },
+    {
+      key: "settings",
+      icon: <SettingOutlined />,
+      label: "Settings",
+      position: "down",
+    },
     {
       key: "logout",
       icon: <LogoutOutlined style={{ color: "red" }} />,
       label: "Logout",
+      position: "down",
     },
   ];
 
   // Handle menu item click
   const handleMenuClick = (e) => {
-    if (e.key === "pricingDetails") {
-      navigate("/pricing");
-    } else if (e.key !== "logout") {
+    if (e.key !== "logout") {
       dispatch(updateActiveTab(e.key));
     } else {
       dispatch(logout());
@@ -131,13 +142,19 @@ const Sidebar = () => {
 
         {/* Main Menu */}
         <div style={{ flex: 1, height: "85%" }}>
-          {renderMenu(menuItems.slice(0, 2), handleMenuClick)}{" "}
+          {renderMenu(
+            menuItems.filter((item) => item.position === "up"),
+            handleMenuClick
+          )}{" "}
           {/* Show main menu items */}
         </div>
 
         {/* Settings and Logout Menu */}
         <div>
-          {renderMenu(menuItems.slice(2), handleMenuClick)}{" "}
+          {renderMenu(
+            menuItems.filter((item) => item.position === "down"),
+            handleMenuClick
+          )}{" "}
           {/* Show settings and logout */}
         </div>
       </Sider>

@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Input, List, Avatar, Typography, Drawer, Menu } from "antd";
+import { Layout, List, Avatar, Typography, Drawer, Menu } from "antd";
 import {
   SettingOutlined,
-  CalendarOutlined,
   CreditCardOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import BillingDashboard from "./Billing";
-import Calendar from "./Calendar";
+import ProfilePage from "./Profile";
 
 const { Sider } = Layout;
 const { Text, Title } = Typography;
 
 const SettingsSideBar = [
   {
+    key: "profile",
+    label: "Profile",
+    icon: <UserOutlined />,
+    component: <ProfilePage />,
+  },
+
+  {
     key: "billing",
     label: "Billing",
     icon: <CreditCardOutlined />,
     component: <BillingDashboard />,
-  },
-  {
-    key: "calendar",
-    icon: <CalendarOutlined />,
-    label: "Calendar",
-    component: <Calendar />,
   },
 ];
 
@@ -30,7 +31,7 @@ const Settings = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState(
-    <BillingDashboard />
+    SettingsSideBar[0].component
   );
 
   // Handle screen resize
