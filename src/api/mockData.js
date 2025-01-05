@@ -238,16 +238,6 @@ export const mockTransactions = [
   },
 ];
 
-export const mockWorkingHours = [
-  { day: "Monday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
-  { day: "Tuesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
-  { day: "Wednesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
-  { day: "Thursday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
-  { day: "Friday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
-  { day: "Saturday", times: [] },
-  { day: "Sunday", times: [] },
-];
-
 export const defaultTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 export const mockUserProfile = {
   name: "Shashank Srivastava",
@@ -257,4 +247,77 @@ export const mockUserProfile = {
   phone: "+1 612 314 6758",
   emails: ["social@fitpeo.com", "shashank@fitpeo.com"],
   ownership: "Owner",
+  timeZone: defaultTimeZone,
+  workingHours: [
+    { day: "Monday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+    { day: "Tuesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+    { day: "Wednesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+    { day: "Thursday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+    { day: "Friday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+    { day: "Saturday", times: [] },
+    { day: "Sunday", times: [] },
+  ],
 };
+
+export const mockTeamData = [
+  {
+    id: 1,
+    name: "Ashley Mays",
+    phone: "+1 501 317 0226",
+    email: "ashley@fitpeo.com",
+    location: "Benton, AR, US",
+    workingHours: "9:00 AM - 5:00 PM",
+    role: "Admin",
+    status: "Active",
+    workingHours: [
+      { day: "Monday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Tuesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Wednesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Thursday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Friday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Saturday", times: [] },
+      { day: "Sunday", times: [] },
+    ],
+    timeZone: defaultTimeZone,
+  },
+  {
+    id: 2,
+    name: "Brooklin Martinez",
+    phone: "+1 310 211 1234",
+    email: "brooklin@fitpeo.com",
+    location: "Los Angeles, CA, US",
+    workingHours: "10:00 AM - 6:00 PM",
+    role: "Standard",
+    status: "Active",
+    workingHours: [
+      { day: "Monday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Tuesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Wednesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Thursday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Friday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Saturday", times: [] },
+      { day: "Sunday", times: [] },
+    ],
+    timeZone: defaultTimeZone,
+  },
+  {
+    id: 3,
+    name: "Courtney Gilbert",
+    phone: "+1 415 678 9900",
+    email: "courtney@fitpeo.com",
+    location: "San Francisco, CA, US",
+    workingHours: "",
+    role: "Pending",
+    status: "Pending",
+    workingHours: [
+      { day: "Monday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Tuesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Wednesday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Thursday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Friday", times: [{ start: "8:00 AM", end: "5:00 PM" }] },
+      { day: "Saturday", times: [] },
+      { day: "Sunday", times: [] },
+    ],
+    timeZone: defaultTimeZone,
+  },
+];

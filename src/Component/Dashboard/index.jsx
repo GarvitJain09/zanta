@@ -8,7 +8,10 @@ import HelpAndSupport from "../HelpAndSupport";
 import Settings from "../Settings";
 import Pricing from "../Pricing";
 import Calendar from "./Calendar";
-import { fetchProfile, fetchWorkingHours } from "../../features/profile/profileSlice";
+import {
+  fetchProfile,
+  fetchWorkingHours,
+} from "../../features/profile/profileSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -17,7 +20,6 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(fetchProfile());
     dispatch(fetchMessages(0));
-    dispatch(fetchWorkingHours());
   }, []);
 
   return (

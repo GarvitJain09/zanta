@@ -60,6 +60,8 @@ const WorkingHoursModal = ({
   workingHours,
   updateWorkingHours,
   timeZone,
+  title,
+  pageData,
 }) => {
   const { options } = useTimezoneSelect({
     labelStyle,
@@ -119,6 +121,7 @@ const WorkingHoursModal = ({
   const handleSave = () => {
     dispatch(
       updateWorkingHours({
+        ...pageData,
         workingHours: localWorkingHours,
         timeZone: selectedTimeZone,
       })
@@ -132,7 +135,7 @@ const WorkingHoursModal = ({
 
   return (
     <Modal
-      title="My profile"
+      title={title}
       visible={visible}
       onCancel={onCancel}
       footer={[
@@ -146,23 +149,23 @@ const WorkingHoursModal = ({
       width={800}
     >
       <Space size={16} style={{ marginBottom: "24px" }}>
-        <Avatar size={64}>S</Avatar>
+        <Avatar size={64}> {pageData.name[0]}</Avatar>
         <div>
           <Title level={4} style={{ marginBottom: 0 }}>
-            Shashank Srivastava
+            {pageData.name}
           </Title>
-          <Text type="secondary">Operations Manager</Text>
+          {pageData?.role && <Text type="secondary">{pageData.role}</Text>}
         </div>
       </Space>
 
       <Title level={4}>Manage working hours</Title>
 
       <Space direction="vertical" size={16} style={{ width: "100%" }}>
-        {localWorkingHours.map((day, dayIndex) => (
+        {localWorkingHours?.map((day, dayIndex) => (
           <Space key={day.day} align="start">
             <div style={{ width: "100px" }}>{day.day}</div>
             <Space direction="vertical" size={8} style={{ width: "100%" }}>
-              {day.times.map((time, timeIndex) => (
+              {day?.times?.map((time, timeIndex) => (
                 <Space key={timeIndex}>
                   <Select
                     value={time.start}
@@ -171,7 +174,7 @@ const WorkingHoursModal = ({
                       handleTimeChange(dayIndex, timeIndex, newStart, time.end)
                     }
                   >
-                    {timeSlots.map((slot) => (
+                    {timeSlots?.map((slot) => (
                       <Option key={slot.start} value={slot.start}>
                         {slot.start}
                       </Option>
@@ -185,7 +188,7 @@ const WorkingHoursModal = ({
                       handleTimeChange(dayIndex, timeIndex, time.start, newEnd)
                     }
                   >
-                    {timeSlots.map((slot) => (
+                    {timeSlots?.map((slot) => (
                       <Option key={slot.start} value={slot.end}>
                         {slot.end}
                       </Option>
@@ -226,7 +229,7 @@ const WorkingHoursModal = ({
             defaultValue={timeZone}
             onChange={(value) => setSelectedTimeZone(value)}
           >
-            {options.map((timeZone) => (
+            {options?.map((timeZone) => (
               <Select.Option
                 key={timeZone.value}
                 value={timeZone.value}

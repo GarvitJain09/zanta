@@ -4,9 +4,13 @@ import {
   SettingOutlined,
   CreditCardOutlined,
   UserOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import BillingDashboard from "./Billing";
 import ProfilePage from "./Profile";
+import Teams from "./Team";
+import { useDispatch } from "react-redux";
+import { fetchTeams } from "../../features/team/teamSlice";
 
 const { Sider } = Layout;
 const { Text, Title } = Typography;
@@ -18,7 +22,12 @@ const SettingsSideBar = [
     icon: <UserOutlined />,
     component: <ProfilePage />,
   },
-
+  {
+    key: "team",
+    label: "My Team",
+    icon: <TeamOutlined />,
+    component: <Teams />,
+  },
   {
     key: "billing",
     label: "Billing",
@@ -28,6 +37,7 @@ const SettingsSideBar = [
 ];
 
 const Settings = () => {
+  const dispatch = useDispatch();
   const [isMobile, setIsMobile] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState(
@@ -36,6 +46,7 @@ const Settings = () => {
 
   // Handle screen resize
   useEffect(() => {
+    dispatch(fetchTeams());
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
